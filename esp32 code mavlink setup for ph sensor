@@ -1,0 +1,51 @@
+#include <mavlink.h>
+
+#define RX2_PIN 16
+#define TX2_PIN 17
+#define PH_PIN 32 
+
+unsigned long previousMillis = 0;
+const long interval = 1000;
+
+void setup() {
+  Serial.begin(115200);
+  Serial2.begin(115200, SERIAL_8N1, RX2_PIN, TX2_PIN);
+  analogReadResolution(12);
+  Serial.println("ESP32 MAVLink Telemetry Bridge Started");
+}
+
+void loop() {
+  unsigned long currentMillis = millis();
+
+  if (currentMillis - previousMillis >= interval) {
+    previousMillis = currentMillis;
+
+    int rawValue = analogRead(PH_PIN);
+    float voltage = rawValue * (3.3 / 4095.0);
+    float phValue = 7.0 + ((2.5 - voltage) / 0.18); 
+
+    Serial.printf("Raw: %d | Volts: %.2fV | pH: %.2f\n", rawValue, voltage, phValue);
+    send_mavlink_named_float("pH_Level", phValue);
+  }
+}
+
+void send_mavlink_named_float(const char* name, float value) {
+  mavlink_message_t msg;
+  uint8_t buf[MAVLINK_MAX_PACKET_LEN];
+
+  uint8_t system_id = 1; 
+  uint8_t component_id = MAV_COMP_ID_PERIPHERAL; 
+  uint32_t time_boot_ms = millis();
+
+  mavlink_msg_named_value_float_pack(
+    system_id, 
+    component_id, 
+    &msg, 
+    time_boot_ms, 
+    name, 
+    value
+  );
+
+  uint16_t len = mavlink_msg_to_send_buffer(buf, &msg);
+  Serial2.write(buf, len);
+}
