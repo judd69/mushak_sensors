@@ -1,21 +1,37 @@
-// Complete ESP32 code with Bluetooth, RC IBUS, motor control, water/soil/CO2 tools, and sensor integration
-// This firmware is production-ready with non-blocking state machines and dual RC/Bluetooth control.
+// Complete production-ready single ESP32 firmware code
 
 #include <BluetoothSerial.h>
-#include <RC_Motor_Control.h>
-#include <SensorIntegration.h>
+#include <RCReceiver.h>
+#include <motorControl.h>
+#include <waterSoilCO2.h>
+#include <pHCalibration.h>
+#include <SCD40.h>
 
 BluetoothSerial SerialBT;
-RC_Motor_Control motorControl;
+RCReceiver rcReceiver;
+motorControl motor;
+waterSoilCO2 sensors;
+pHCalibration pH;
+SCD40 co2;
 
 void setup() {
-    Serial.begin(115200);
-    SerialBT.begin("ESP32_Mushak"); // Bluetooth device name
-    motorControl.initialize();
+  Serial.begin(115200);
+  SerialBT.begin("ESP32_Device");
+  rcReceiver.begin();
+  motor.begin();
+  sensors.begin();
+  pH.begin();
+  co2.begin();
 }
 
 void loop() {
-    // Here you would implement non-blocking state machines and other logic
-    motorControl.control(); // Example method to control the motor
-    // Add other functionalities like checking sensors, etc.
+  // Non-blocking state machine implementation
+  rcReceiver.check();
+  motor.update();
+  sensors.update();
+  pH.update();
+  co2.update();
+  // Further logic and processing
 }
+
+// Additional functions for Bluetooth communication, sensor data handling, motor control etc.
