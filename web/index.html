@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mushak Rover Control Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Mushak Rover Control Dashboard</h1>
+    </header>
+    <main>
+        <section id="controls">
+            <h2>Control Panel</h2>
+            <button id="start">Start</button>
+            <button id="stop">Stop</button>
+            <button id="reset">Reset</button>
+        </section>
+        <section id="status">
+            <h2>Status</h2>
+            <div id="battery-status">Battery: <span id="battery-level">100%</span></div>
+            <div id="connection-status">Connection: <span id="connection-state">Connected</span></div>
+        </section>
+        <section id="data">
+            <h2>Telemetry Data</h2>
+            <div id="sensor-data">
+                <p>Temperature: <span id="temperature">-- °C</span></p>
+                <p>Humidity: <span id="humidity">-- %</span></p>
+                <p>Distance: <span id="distance">-- m</span></p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2026 Mushak Rover Control System</p>
+    </footer>
+</body>
+</html>
