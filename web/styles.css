@@ -1,0 +1,100 @@
+/* CSS Variables */
+:root {
+    --primary-color: #00ffff; /* Neon Cyan */
+    --secondary-color: #ff00ff; /* Neon Magenta */
+    --background-color: #0a0a0a; /* Dark Background */
+    --card-background: rgba(10, 10, 10, 0.8);
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --font-family: 'Arial', sans-serif;
+}
+
+/* General Styles */
+body {
+    margin: 0;
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    color: var(--primary-color);
+    overflow: hidden;
+    /* Add starfield effect */
+}
+
+/* Starfield Effect */
+.starfield {
+    background: url('path/to/starfield.png') repeat;
+    animation: twinkling 1.5s infinite; /* Adjust as needed */
+}
+
+@keyframes twinkling {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
+}
+
+/* Responsive Grid Layout */
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.tool-card {
+    background: var(--card-background);
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.tool-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Button Styles */
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: black;
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+    color: black;
+}
+
+.btn-success {
+    background-color: var(--success-color);
+    color: white;
+}
+
+.btn-danger {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+/* Scrollbar Skinning */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-color);
+}
+
+/* Add here additional styles as needed */
